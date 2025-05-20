@@ -5,7 +5,8 @@ description = "An interactive API for my portfolio site!"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi>=0.115.12",
+    "fastapi[standard]>=0.115.12",
+    "psycopg2>=2.9.10",
     "pydantic>=2.11.4",
     "python-dotenv>=1.1.0",
     "sqlalchemy>=2.0.41",

@@ -20,11 +20,14 @@ class Skills(Base):
     name = Column(String, nullable=False)
 
 class Education(Base):
+    __tablename__ = "education"
+
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     school = Column(String, nullable=False)
     degree = Column(String, nullable=False)
     major = Column(String, nullable=False)
     dates = Column(String, nullable=False)
+    description = Column(String, nullable=False)
 
 # class Skills(SQLModel, table=True):
 #     id: Optional[int] = Field(default=None, primary_key=True)
