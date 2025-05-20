@@ -1,9 +1,8 @@
 from fastapi import FastAPI
-from sqlmodel import SQLModel
-from .database import engine
+from .database import Base, engine
 
 def create_db():
-    SQLModel.metadata.create_all(engine)
+    Base.metadata.create_all(engine)
 
 app = FastAPI(
     title="Portfolio API",
@@ -16,7 +15,7 @@ async def root():
     return {
         "Introduction": "Welcome to my Portfolio! This is an interactive API to get more information about me, or leave a message saying you visted!",
         "Created by": "Jacob Armstrong",
-        "Using": "FastAPI, Pydantic, SQLModel and PostgreSQL",
+        "Using": "FastAPI, Pydantic, SQLAlchemy and PostgreSQL",
         "Documentation": ""
     }
 
