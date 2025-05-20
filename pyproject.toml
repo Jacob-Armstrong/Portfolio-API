@@ -1,0 +1,7 @@
+[project]
+name = "portfolio-api"
+version = "0.1.0"
+description = "An interactive API for my portfolio site!"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
