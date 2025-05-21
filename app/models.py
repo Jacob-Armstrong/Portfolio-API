@@ -1,6 +1,5 @@
-from sqlalchemy import Column, String, Integer, Numeric
+from sqlalchemy import Column, String, Integer, DateTime, func
 from .database import Base
-from typing import Optional
 
 class Profile(Base):
     __tablename__ = "profile"
@@ -28,6 +27,24 @@ class Education(Base):
     major = Column(String, nullable=False)
     dates = Column(String, nullable=False)
     description = Column(String, nullable=False)
+
+class Experience(Base):
+    __tablename__ = "experience"
+
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    company = Column(String, nullable=False)
+    role = Column(String, nullable=False)
+    dates = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+
+class Visits(Base):
+    __tablename__ = "visits"
+
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    name = Column(String, nullable=False)
+    relation = Column(String, nullable=False)
+    message = Column(String, nullable=False)
+    date = Column(DateTime(timezone=True), server_default=func.now())
 
 # class Skills(SQLModel, table=True):
 #     id: Optional[int] = Field(default=None, primary_key=True)
