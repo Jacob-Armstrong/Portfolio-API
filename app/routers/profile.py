@@ -1,18 +1,24 @@
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import APIKeyHeader
 from sqlalchemy.orm import Session
 from ..database import get_db
 
 from ..models import Profile
 from ..schemas import ProfileCreate, ProfileResponse, ProfileUpdate
 
+import os
+
 router = APIRouter()
+
+api_key = os.getenv("API_KEY")
+header_scheme = APIKeyHeader(name="api_key")
 
 # TODO: Require authorization on all methods except GET
 
 # POST
 @router.post("/profile", response_model=ProfileResponse, tags="Profile")
 def create_profile(
-    profile: ProfileCreate, 
+    profile: ProfileCreate,
     db: Session = Depends(get_db)):
     
     # Find profile with same name
@@ -79,7 +85,11 @@ def update_profile(
 @router.delete("/profile/{name}", response_model=ProfileResponse, tags="Profile")
 def delete_profile(
     name: str, # Name of profile to delete
+    key: str = Depends(header_scheme),
     db: Session = Depends(get_db)):
+
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Unauthorized API key.")
 
     # Find profile with provided name
     profile = db.query(Profile).filter(Profile.name == name).first()
