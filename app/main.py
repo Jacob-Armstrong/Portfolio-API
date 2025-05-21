@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from .database import Base, engine
 
+from .routers import profile
+
 def create_db():
     Base.metadata.create_all(engine)
 
@@ -9,6 +11,9 @@ app = FastAPI(
     version="1.0.0",
     description="Welcome to my portfolio!"
 )
+
+# Include routers
+app.include_router(profile.router)
 
 @app.get("/")
 async def root():

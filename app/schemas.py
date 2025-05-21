@@ -21,17 +21,15 @@ class ProfileCreate(ProfileBase):
     pass
 
 # GET
-# Include generated ID in response
+# Same structure as base (ID is irrelevant, only one entry)
 class ProfileResponse(ProfileBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+    pass
 
 # UPDATE
-# Can update age, about, and favorites
+# Must include name in update -- other fields are optional
 class ProfileUpdate(ProfileBase):
     age: Optional[int] = None
     about: Optional[str] = None
     favorite_color: Optional[str] = None
     favorite_food: Optional[str] = None
+
