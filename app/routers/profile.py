@@ -19,7 +19,11 @@ header_scheme = APIKeyHeader(name="api_key")
 @router.post("/profile", response_model=ProfileResponse, tags="Profile")
 def create_profile(
     profile: ProfileCreate,
+    key: str = Depends(header_scheme),
     db: Session = Depends(get_db)):
+
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Unauthorized API key.")
     
     # Find profile with same name
     existing_profile = db.query(Profile).filter(Profile.name == profile.name).first()
@@ -58,7 +62,11 @@ def get_profile(
 def update_profile(
     name: str, # Must include name in query
     profile_update: ProfileUpdate, # Schema components to update
+    key: str = Depends(header_scheme),
     db: Session = Depends(get_db)):
+
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Unauthorized API key.")
 
     # Find profile with provided name
     profile = db.query(Profile).filter(Profile.name == name).first()
