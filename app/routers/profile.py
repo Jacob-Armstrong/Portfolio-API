@@ -13,8 +13,6 @@ router = APIRouter()
 api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
-# TODO: Require authorization on all methods except GET
-
 # POST
 @router.post("/profile", response_model=ProfileResponse, tags="Profile")
 def create_profile(
