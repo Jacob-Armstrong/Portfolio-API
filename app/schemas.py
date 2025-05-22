@@ -25,7 +25,7 @@ class ProfileCreate(ProfileBase):
 class ProfileResponse(ProfileBase):
     pass
 
-# UPDATE
+# PUT (UPDATE)
 # Must include name in update -- other fields are optional
 class ProfileUpdate(ProfileBase):
     age: Optional[int] = None
@@ -38,21 +38,22 @@ class ProfileUpdate(ProfileBase):
 # ================================
 
 # Base model
-class SkillsBase(BaseModel):
+class SkillBase(BaseModel):
     category: str
     name: str
 
 # POST
 # Same structure as base
-class SkillsCreate(SkillsBase):
+class SkillCreate(SkillBase):
     pass
 
 # GET
-# Same structure as base
-class SkillsResponse(SkillsBase):
-    pass
+# Show ID, since category and name are not unique
+class SkillResponse(SkillBase):
+    id: int
 
-# UPDATE
-# Must include both values
-class SkillsUpdate(SkillsBase):
-    pass
+# PUT (UPDATE)
+# Must include ID to update, name and category are not unique
+class SkillUpdate(SkillBase):
+    category: Optional[str] = None
+    name: Optional[str] = None

@@ -47,7 +47,7 @@ def get_profile(
     # Query profile table
     profile = db.query(Profile)
 
-    # Select all results
+    # Select result
     profile = profile.first()
 
     if not profile:
