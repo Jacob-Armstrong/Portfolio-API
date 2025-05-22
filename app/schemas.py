@@ -21,7 +21,7 @@ class ProfileCreate(ProfileBase):
     pass
 
 # GET
-# Same structure as base (ID is irrelevant, only one entry)
+# Same structure as base
 class ProfileResponse(ProfileBase):
     pass
 
@@ -33,3 +33,26 @@ class ProfileUpdate(ProfileBase):
     favorite_color: Optional[str] = None
     favorite_food: Optional[str] = None
 
+# ================================
+# =            Skills            =
+# ================================
+
+# Base model
+class SkillsBase(BaseModel):
+    category: str
+    name: str
+
+# POST
+# Same structure as base
+class SkillsCreate(SkillsBase):
+    pass
+
+# GET
+# Same structure as base
+class SkillsResponse(SkillsBase):
+    pass
+
+# UPDATE
+# Must include both values
+class SkillsUpdate(SkillsBase):
+    pass
