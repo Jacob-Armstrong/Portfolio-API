@@ -73,3 +73,55 @@ def get_visits(
 
     return visits
 
+# PUT
+@router.put("/visits/{id}", response_model=VisitResponse, tags=["Visits"])
+def update_visit(
+    id: int, # Update by ID
+    visit_update: VisitUpdate,
+    key: str = Depends(header_scheme),
+    db: Session = Depends(get_db)):
+
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Unauthorized API key.")
+    
+    # Find specified visit
+    visit = db.query(Visits).filter(Visits.id == id).first()
+
+    if not visit:
+        raise HTTPException(status_code=404, detail=f"Visit with id {id} not found.")
+    
+    # Update visit
+    if visit_update.name:
+        visit.name = visit_update.name
+    if visit_update.relation:
+        visit.relation = visit_update.relation
+    if visit_update.message:
+        visit.message = visit_update.message
+    
+    # Commit changes to db
+    db.commit()
+    db.refresh(visit)
+
+    return visit
+
+# DELETE
+@router.delete("/visits/{id}", response_model=VisitResponse, tags=["Visits"])
+def delete_visit(
+    id: int, # Delete by ID,
+    key: str = Depends(header_scheme),
+    db: Session = Depends(get_db)):
+
+    if key != api_key:
+        raise HTTPException(status_code=401, detail="Unauthorized API key.")
+    
+    # Find specified visit
+    visit = db.query(Visits).filter(Visits.id == id).first()
+
+    if not visit:
+        raise HTTPException(status_code=404, detail=f"Visit with id {id} not found.")
+    
+    # Delete visit
+    db.delete(visit)
+    db.commit()
+
+    return visit
