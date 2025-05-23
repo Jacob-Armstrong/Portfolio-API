@@ -6,10 +6,42 @@ from .routers import profile, skills, education, experience, visits
 def create_db():
     Base.metadata.create_all(engine)
 
+tags_metadata = [
+    {
+        "name": "Profile",
+        "description": "Basic information about me",
+        "externalDocs": {
+            "description": "View my full profile",
+            "url":"https://jacobarmstrong.dev"
+        }
+    },
+    {
+        "name": "Skills",
+        "description": "Skills I've learned from school and taught myself"
+    },
+    {
+        "name": "Education",
+        "description": "History of my education"
+    },
+    {
+        "name": "Experience",
+        "description": "History of my work experience"
+    },
+    {
+        "name": "Visits",
+        "description": "**POST** a visit to my API :)"
+    }
+]
+
 app = FastAPI(
     title="Portfolio API",
     version="1.0.0",
-    description="Welcome to my portfolio!"
+    description="Welcome to my Portfolio API!",
+    contact = {
+        "name": "Jacob Armstrong",
+        "url": "https://jacobarmstrong.dev"
+    },
+    openapi_tags=tags_metadata
 )
 
 # Include routers
@@ -25,7 +57,7 @@ async def root():
         "Introduction": "Welcome to my Portfolio! This is an interactive API to get more information about me, or leave a message saying you visted!",
         "Created by": "Jacob Armstrong",
         "Using": "FastAPI, Pydantic, SQLAlchemy and PostgreSQL",
-        "Documentation": ""
+        "Documentation": "api.jacobarmstrong.dev/docs"
     }
 
 if __name__ == "__main__":

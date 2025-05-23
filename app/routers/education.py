@@ -12,7 +12,7 @@ router = APIRouter()
 api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
-@router.post("/education", response_model=EducationCreate, tags="Education")
+@router.post("/education", response_model=EducationCreate, tags=["Education"])
 def create_education(
     education: EducationCreate,
     key: str = Depends(header_scheme),
@@ -44,7 +44,7 @@ def create_education(
     return new_education
 
 # GET
-@router.get("/education", response_model=list[EducationResponse], tags="Education")
+@router.get("/education", response_model=list[EducationResponse], tags=["Education"])
 def get_education(
     school: str | None = Query(default=None, description="(optional) Filter by school"),
     degree: str | None = Query(default=None, description="(optional) Filter by degree"),
@@ -76,7 +76,7 @@ def get_education(
     return education
 
 # PUT
-@router.put("/education/{id}", response_model=EducationUpdate, tags="Education")
+@router.put("/education/{id}", response_model=EducationUpdate, tags=["Education"])
 def update_education(
     id: int, #  Update by ID
     education_update: EducationUpdate,
@@ -111,7 +111,7 @@ def update_education(
     return education
 
 # DELETE
-@router.delete("/education/{id}", response_model=EducationResponse, tags="Education")
+@router.delete("/education/{id}", response_model=EducationResponse, tags=["Education"])
 def delete_education(
     id: int, # Delete by ID
     key: str = Depends(header_scheme),

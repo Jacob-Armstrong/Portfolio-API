@@ -14,7 +14,7 @@ api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
 # POST
-@router.post("/skills", response_model=SkillCreate, tags="Skills")
+@router.post("/skills", response_model=SkillCreate, tags=["Skills"])
 def create_skill(
     skill: SkillCreate,
     key: str = Depends(header_scheme),
@@ -40,7 +40,7 @@ def create_skill(
     return new_skill
 
 # GET
-@router.get("/skills", response_model=list[SkillResponse], tags="Skills")
+@router.get("/skills", response_model=list[SkillResponse], tags=["Skills"])
 def get_skills(
     category: str | None = Query(default=None, description="(optional) Filter by category"),
     name: str | None = Query(default=None, description="(optional) Filter by skill"),
@@ -65,7 +65,7 @@ def get_skills(
     return skills
 
 # PUT
-@router.put("/skills/{id}", response_model=SkillUpdate, tags="Skills")
+@router.put("/skills/{id}", response_model=SkillUpdate, tags=["Skills"])
 def update_skill(
     id: int, # Update by ID, since name and category are not unique
     skill_update: SkillUpdate,
@@ -98,7 +98,7 @@ def update_skill(
     return skill
 
 # DELETE
-@router.delete("/skills/{id}", response_model=SkillResponse, tags="Skills")
+@router.delete("/skills/{id}", response_model=SkillResponse, tags=["Skills"])
 def delete_skill(
     id: int,
     key: str = Depends(header_scheme),

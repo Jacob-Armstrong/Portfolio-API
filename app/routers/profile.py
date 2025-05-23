@@ -14,7 +14,7 @@ api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
 # POST
-@router.post("/profile", response_model=ProfileResponse, tags="Profile")
+@router.post("/profile", response_model=ProfileResponse, tags=["Profile"])
 def create_profile(
     profile: ProfileCreate,
     key: str = Depends(header_scheme),
@@ -40,7 +40,7 @@ def create_profile(
     return new_profile
 
 # GET
-@router.get("/profile", response_model=ProfileResponse, tags="Profile")
+@router.get("/profile", response_model=ProfileResponse, tags=["Profile"])
 def get_profile(
     db: Session = Depends(get_db)):
     
@@ -56,7 +56,7 @@ def get_profile(
     return profile
 
 # PUT (Update)
-@router.put("/profile/{name}", response_model=ProfileUpdate, tags="Profile")
+@router.put("/profile/{name}", response_model=ProfileUpdate, tags=["Profile"])
 def update_profile(
     name: str, # Must include name in query
     profile_update: ProfileUpdate, # Schema components to update
@@ -88,7 +88,7 @@ def update_profile(
     return profile
 
 # DELETE
-@router.delete("/profile/{name}", response_model=ProfileResponse, tags="Profile")
+@router.delete("/profile/{name}", response_model=ProfileResponse, tags=["Profile"])
 def delete_profile(
     name: str, # Name of profile to delete
     key: str = Depends(header_scheme),

@@ -13,7 +13,7 @@ api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
 # POST
-@router.post("/experience", response_model=ExperienceCreate, tags="Experience")
+@router.post("/experience", response_model=ExperienceCreate, tags=["Experience"])
 def create_experience(
     experience: ExperienceCreate,
     key: str = Depends(header_scheme),
@@ -41,7 +41,7 @@ def create_experience(
     return new_experience
 
 # GET
-@router.get("/experience", response_model=list[ExperienceResponse], tags="Experience")
+@router.get("/experience", response_model=list[ExperienceResponse], tags=["Experience"])
 def get_experience(
     company: str | None = Query(default=None, description="(optional) Filter by company"),
     role: str | None = Query(default=None, description="(optional) Filter by role"),
@@ -69,7 +69,7 @@ def get_experience(
     return experience
 
 # PUT
-@router.put("/experience/{id}", response_model=ExperienceUpdate, tags="Experience")
+@router.put("/experience/{id}", response_model=ExperienceUpdate, tags=["Experience"])
 def update_experience(
     id: int, # Update by ID
     experience_update: ExperienceUpdate,
@@ -102,7 +102,7 @@ def update_experience(
     return experience
 
 # DELETE
-@router.delete("/experience/{id}", response_model=ExperienceResponse, tags="Experience")
+@router.delete("/experience/{id}", response_model=ExperienceResponse, tags=["Experience"])
 def delete_experience(
     id: int, # Delete by ID
     key: str = Depends(header_scheme),

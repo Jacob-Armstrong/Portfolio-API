@@ -17,7 +17,7 @@ api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
 # POST
-@router.post("/visits", response_model=VisitCreate, tags="Visits")
+@router.post("/visits", response_model=VisitCreate, tags=["Visits"])
 def create_visit(
     visit: VisitCreate,
     # No API key required to visit!
@@ -43,7 +43,7 @@ def create_visit(
     return new_visit
 
 # GET
-@router.get("/visits", response_model=list[VisitResponse], tags="Visits")
+@router.get("/visits", response_model=list[VisitResponse], tags=["Visits"])
 def get_visits(
     name: str | None = Query(default=None, description="(optional) Filter by name"),
     relation: str | None = Query(default=None, description="(optional) Filter by relation"),
