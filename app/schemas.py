@@ -57,3 +57,34 @@ class SkillResponse(SkillBase):
 class SkillUpdate(SkillBase):
     category: Optional[str] = None
     name: Optional[str] = None
+
+# ================================
+# =          Education           =
+# ================================
+
+# Base model
+class EducationBase(BaseModel):
+    school: str
+    degree: str
+    major: str
+    dates: str
+    description: str
+
+# POST
+# Same structure as base
+class EducationCreate(EducationBase):
+    pass
+
+# GET
+# Show ID, since school name may not be unique
+class EducationResponse(EducationBase):
+    id: int
+
+# PUT (UPDATE)
+# Must include ID to update
+class EducationUpdate(EducationBase):
+    school: Optional[str] = None
+    degree: Optional[str] = None
+    major: Optional[str] = None
+    dates: Optional[str] = None
+    description: Optional[str] = None

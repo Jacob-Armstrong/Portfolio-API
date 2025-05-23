@@ -43,7 +43,7 @@ def create_skill(
 @router.get("/skills", response_model=list[SkillResponse], tags="Skills")
 def get_skills(
     category: str | None = Query(default=None, description="(optional) Filter by category"),
-    name: str | None = Query(default=None, description="(optional) Search for specific skill"),
+    name: str | None = Query(default=None, description="(optional) Filter by skill"),
     db: Session = Depends(get_db)):
 
     # Query skills table
@@ -64,29 +64,6 @@ def get_skills(
 
     return skills
 
-# @router.get("/skills/{category}", response_model=list(SkillResponse), tags="Skills")
-# def get_skills_by_category(
-#     category: str,
-#     name: str | None = Query(default=None, description="(optional) Search for specific skill"),
-#     db: Session = Depends(get_db)):
-
-#     # Query skills table
-#     skills = db.query(Skills)
-
-#     # Filter by category
-#     skills = skills.filter(Skills.category == category)
-
-#     if name:
-#         skills = skills.filter(Skills.name == name)
-
-#     # Select all results
-#     skills = skills.all()
-
-#     if not skills:
-#         raise HTTPException(status_code=404, detail=f"No skills found matching provided the provided parameters.")
-    
-#     return skills
-
 # PUT
 @router.put("/skills/{id}", response_model=SkillUpdate, tags="Skills")
 def update_skill(
@@ -102,10 +79,10 @@ def update_skill(
     skill = db.query(Skills).filter(Skills.id == id).first()
 
     if not skill:
-        raise HTTPException(status_code=404, detail=f"\"{skill_update.category}\" skill \"{skill_update.name}\" not found.")
+        raise HTTPException(status_code=404, detail=f"Skill with id {id} not found.")
     
     # Ensure a skill does not already exist with updated info
-    existing_skill = db.query(Skills).filter(Skills.category == skill_update.category and Skills.name == skill_update.name).first()
+    existing_skill = db.query(Skills).filter(Skills.category == skill_update.category, Skills.name == skill_update.name).first()
 
     if existing_skill:
         raise HTTPException(status_code=409, detail=f"Could not update. {skill_update.name} already exists in {skill_update.category}.")
