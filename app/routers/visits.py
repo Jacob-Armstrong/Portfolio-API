@@ -15,6 +15,7 @@ router = APIRouter()
 
 api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
+pacific = timezone("America/Los_Angeles")
 
 # POST
 @router.post("/visits", response_model=VisitCreate, tags=["Visits"])
@@ -67,7 +68,6 @@ def get_visits(
         raise HTTPException(status_code=404, detail=f"No visits found matching the provided parameters.")
     
     # Convert timezones to Pacific (they are stored as UTC)
-    pacific = timezone("America/Los_Angeles")
     for visit in visits:
         visit.date = visit.date.astimezone(pacific).strftime("%m-%d-%Y %I:%M%p %Z")
 
@@ -102,6 +102,9 @@ def update_visit(
     db.commit()
     db.refresh(visit)
 
+    # Convert to formatted string for response
+    visit.date = visit.date.astimezone(pacific).strftime("%m-%d-%Y %I:%M%p %Z")
+
     return visit
 
 # DELETE
@@ -123,5 +126,8 @@ def delete_visit(
     # Delete visit
     db.delete(visit)
     db.commit()
+
+    # Convert to formatted string for response
+    visit.date = visit.date.astimezone(pacific).strftime("%m-%d-%Y %I:%M%p %Z")
 
     return visit
