@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
+from datetime import datetime
 
 # Structures for API interactions (validation)
 
@@ -117,3 +118,32 @@ class ExperienceUpdate(ExperienceBase):
     role: Optional[str] = None
     dates: Optional[str] = None
     description: Optional[str] = None
+
+# ================================
+# =            Visits            =
+# ================================
+
+# Base model
+class VisitBase(BaseModel):
+    name: str
+    relation: str
+    message: str
+
+# POST
+# Same structure as base
+class VisitCreate(VisitBase):
+    pass
+
+# GET
+# Show ID, since there are no unique fields (multiple visits)
+# and the date (as a converted string)
+class VisitResponse(VisitBase):
+    id: int
+    date: str
+
+# PUT (UPDATE)
+# Must include ID to update
+class VisitUpdate(VisitBase):
+    name: Optional[str] = None
+    relation: Optional[str] = None
+    message: Optional[str] = None

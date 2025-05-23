@@ -44,4 +44,4 @@ class Visits(Base):
     name = Column(String, nullable=False)
     relation = Column(String, nullable=False)
     message = Column(String, nullable=False)
-    date = Column(DateTime(timezone=True), server_default=func.now())
+    date = Column(DateTime(timezone=True), server_default=func.timezone('America/Los_Angeles', func.now()), nullable=False)

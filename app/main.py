@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from .database import Base, engine
 
-from .routers import profile, skills, education, experience
+from .routers import profile, skills, education, experience, visits
 
 def create_db():
     Base.metadata.create_all(engine)
@@ -17,6 +17,7 @@ app.include_router(profile.router)
 app.include_router(skills.router)
 app.include_router(education.router)
 app.include_router(experience.router)
+app.include_router(visits.router)
 
 @app.get("/")
 async def root():
