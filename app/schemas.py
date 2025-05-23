@@ -88,3 +88,32 @@ class EducationUpdate(EducationBase):
     major: Optional[str] = None
     dates: Optional[str] = None
     description: Optional[str] = None
+
+# ================================
+# =          Experience          =
+# ================================
+
+# Base model
+class ExperienceBase(BaseModel):
+    company: str
+    role: str
+    dates: str
+    description: str
+
+# POST
+# Same structure as base
+class ExperienceCreate(ExperienceBase):
+    pass
+
+# GET
+# Show ID, since company may not be unique (different roles)
+class ExperienceResponse(ExperienceBase):
+    id: int
+
+# PUT (UPDATE)
+# Must include ID to update
+class ExperienceUpdate(ExperienceBase):
+    company: Optional[str] = None
+    role: Optional[str] = None
+    dates: Optional[str] = None
+    description: Optional[str] = None

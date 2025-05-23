@@ -12,7 +12,7 @@ router = APIRouter()
 api_key = os.getenv("API_KEY")
 header_scheme = APIKeyHeader(name="api_key")
 
-@router.post("/education", response_model=EducationResponse, tags="Education")
+@router.post("/education", response_model=EducationCreate, tags="Education")
 def create_education(
     education: EducationCreate,
     key: str = Depends(header_scheme),
@@ -68,7 +68,7 @@ def get_education(
         education = education.filter(Education.description.ilike(f"%{description}%"))
 
     # Select all results
-    education = education.order_by(Education.id).all()
+    education = education.order_by(Education.id.desc()).all()
 
     if not education:
         raise HTTPException(status_code=404, detail=f"No education found matching the provided parameters.")

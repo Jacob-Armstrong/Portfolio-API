@@ -57,7 +57,7 @@ def get_skills(
         skills = skills.filter(Skills.name == name)
 
     # Select all results
-    skills = skills.all()
+    skills = skills.order_by(Skills.category, Skills.id).all()
 
     if not skills:
         raise HTTPException(status_code=404, detail=f"No skills found matching the provided parameters.")
