@@ -50,8 +50,10 @@ def get_skills(
     skills = db.query(Skills)
 
     if category:
+        category = category.lower().title()
         skills = skills.filter(Skills.category == category)
     if name:
+        name = name.lower().title()
         skills = skills.filter(Skills.name == name)
 
     # Select all results
