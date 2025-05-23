@@ -29,7 +29,7 @@ tags_metadata = [
     },
     {
         "name": "Visits",
-        "description": "**POST** a visit to my API :)"
+        "description": "**POST** a visit to my API! \nLeave your full name, relation (friend, family, recruiter, etc) and a message."
     }
 ]
 
