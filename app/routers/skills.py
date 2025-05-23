@@ -27,7 +27,7 @@ def create_skill(
     existing_skill = db.query(Skills).filter(Skills.category == skill.category, Skills.name == skill.name).first()
 
     if existing_skill:
-        raise HTTPException(status_code=409, detail=f"{skill.name} already exists in {skill.category}. {existing_skill}.")
+        raise HTTPException(status_code=409, detail=f"{skill.name} already exists in {skill.category}.")
     
     # Dump pydantic model into dictionary, unpack into keywords, format into SQLAlchemy model instance
     new_skill = Skills(**skill.model_dump())
