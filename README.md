@@ -21,5 +21,5 @@ All of the endpoints for the API. Each file contains four methods -- POST, GET, 
 
 # Access the API Documentation
 You can view the built-in API documentation with your choice of UI:
-* Swagger UI: <a href="https://api.jacobarmstrong.dev/docs" target="_blank">https://api.jacobarmstrong.dev/docs</a>
-* ReDoc: <a href="https://api.jacobarmstrong.dev/redoc" target="_blank">https://api.jacobarmstrong.dev/redoc</a>
+* Swagger UI: https://api.jacobarmstrong.dev/docs
+* ReDoc: https://api.jacobarmstrong.dev/redoc
