@@ -53,7 +53,7 @@ markupsafe==3.0.2
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-psycopg2==2.9.10
+psycopg2-binary==2.9.10
     # via portfolio-api (pyproject.toml)
 pydantic==2.11.5
     # via
