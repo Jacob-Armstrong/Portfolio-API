@@ -35,7 +35,7 @@ def create_visit(
     
     # Prevent default SwaggerUI submission
     if visit.name == "string" or visit.relation == "string" or visit.message == "string":
-        raise HTTPException(status_code=422, detail="Default string values are not allowed. (e.g. you submitted a visit with 'string' as one of the values)")
+        raise HTTPException(status_code=422, detail="Default values are not allowed. (e.g. you submitted a visit with 'string' as one of the values)")
 
     # Dump pydantic model into dictionary, unpack into keywords, format into SQLAlchemy model instance
     new_visit = Visits(**visit.model_dump(exclude="date"))
